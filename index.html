@@ -5,29 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You've Been Hacked! 😱</title>
     <style>
-        body {
-            text-align: center;
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
             background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         video {
-            width: 80%;
-            max-width: 720px;
-            margin-top: 20px;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <h1>🚨 You Just Got Phished! 🚨</h1>
-    <p>This is how easy it is to fall for phishing scams. Be alert!</p>
-    
-    <video controls autoplay>
-        <source src="You’re Hacked! (Video).mp4" type="video/mp4">
+
+    <video id="hackedVideo" autoplay muted playsinline>
+        <source src="prank.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <p>Want to learn how to **stay safe**? Join our **Cybersecurity Club** today! 🔒</p>
+    <script>
+        // Force fullscreen on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            let video = document.getElementById("hackedVideo");
+            video.play();  // Ensure autoplay
+            video.requestFullscreen().catch(err => console.log("Fullscreen not supported:", err));
+        });
+    </script>
+
 </body>
 </html>
