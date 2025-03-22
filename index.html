@@ -34,11 +34,29 @@
     </video>
 
     <script>
-        // Force fullscreen on page load
         document.addEventListener("DOMContentLoaded", function () {
             let video = document.getElementById("hackedVideo");
-            video.play();  // Ensure autoplay
-            video.requestFullscreen().catch(err => console.log("Fullscreen not supported:", err));
+
+            // Ensure autoplay works
+            video.play().catch(() => {
+                console.log("Autoplay blocked, requiring interaction");
+                document.body.addEventListener("click", () => {
+                    video.play();
+                }, { once: true }); // Play after first click
+            });
+
+            // Request fullscreen after a slight delay
+            setTimeout(() => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) { // Firefox
+                    video.mozRequestFullScreen();
+                } else if (video.webkitRequestFullscreen) { // Safari
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { // IE/Edge
+                    video.msRequestFullscreen();
+                }
+            }, 500);
         });
     </script>
 
